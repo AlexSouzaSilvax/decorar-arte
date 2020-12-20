@@ -1,73 +1,83 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 
-import {
-    Body, Wrapper, A, B, Lista
-} from "./Home.styles";
-import Header from '../../components/Header';
-import CardEvento from '../../components/CardEvento';
-import ActionButton from 'react-native-action-button';
+import { Body, Wrapper, A, B, Lista, ViewLoading } from "./Home.styles";
+import Header from "../../components/Header";
+import CardEvento from "../../components/CardEvento";
+import CardVazio from "../../components/CardVazio";
+import ActionButton from "react-native-action-button";
+import { BASE_URL } from "../../service/api";
+import { Spinner } from "native-base";
+import { RefreshControl } from 'react-native';
+import { colors } from '../../service/colors';
+import { flashMessage } from '../../service/helper';
 
 export default function Home({ navigation }) {
+  const [eventos, setEventos] = useState([]);
+  const [loading, setLoading] = useState(true);
 
-    const eventos = [
-        {
-            id: 0,
-            nomeEvento: 'Festa do Alex hoje vai ter uma festaa aa aa aaa a, bolo e guaraná',
-            tipoServico: "Pegue e Monte",
-            nomeCliente: 'Alex Souza da Silva',
-            celCliente: "21 964645673",
-            localEvento: "Morro Agudo",
-            dataEvento: "03/03/2001",
-            observacao: "",
-            eventoConfirmado: true
-        },
-        {
-            id: 1,
-            nomeEvento: 'Casamento Cintia e Allan',
-            tipoServico: "Decoração",
-            nomeCliente: 'Cintia de Souza Silva Costa',
-            celCliente: "21 964645673",
-            localEvento: "Mesquita",
-            dataEvento: "01/12/2020",
-            observacao: "",
-            eventoConfirmado: true
-        },
-        {
-            id: 2,
-            nomeEvento: 'Happy Hour B2W',
-            tipoServico: "Decoração",
-            nomeCliente: 'Rafael Souza da Silva',
-            celCliente: "21 964645673",
-            localEvento: "Centro de Nova Iguaçu",
-            dataEvento: "31/12/2021",
-            observacao: "",
-            eventoConfirmado: false
-        },
-    ];
+  useEffect(() => {
+    getEventos();
+  }, []);
 
-    return (
-        <Body>
-            <Wrapper>
-                <Header title="DecorArte" onPressFiltro={() => alert('Em desenvolvimento')} />
-            </Wrapper>
-            <A><B /></A>
+  async function getEventos() {
+    setLoading(true);
+    await fetch(`${BASE_URL}/evento/`)
+      .then((response) => response.json())
+      .then((responseJson) => {
+        setEventos(responseJson);
+        flashMessage("Lista atualizada", "success");
+      })
+      .catch((error) => console.error(error));
+    setLoading(false);
+  }
 
-            <Lista
-                data={eventos}
-                keyExtractor={(e) => e.id.toString()}
-                renderItem={({ item }) => (
-                    <CardEvento
-                        key={item.id}
-                        evento={item}
-                        onPress={() => navigation.navigate('DetalheHome', { evento: item })}
-                    />
-                )}
-            />
-            <ActionButton
-                buttonColor="#ed0059"
-                onPress={() => navigation.navigate('DetalheHome')}
-            />
+  return (
+    <Body>
+      <Wrapper>
+        <Header
+          title="DecorArte"
+          onPressFiltro={() => alert("Em desenvolvimento")}
+        />
+      </Wrapper>
+      <A>
+        <B />
+      </A>
 
-        </Body>
-    );
+      {loading ? (
+        <ViewLoading>
+          <Spinner size="small" color={colors.primaryColor} />
+        </ViewLoading>
+      ) : eventos ? (
+        <>
+          <Lista
+            data={eventos}
+            keyExtractor={(e) => e.id.toString()}
+            renderItem={({ item }) => (
+              <CardEvento
+                key={item.id}
+                evento={item}
+                onPress={() =>
+                  navigation.navigate("DetalheHome", { evento: item })
+                }
+              />
+            )}
+            //ListEmptyComponent={<CardVazio msg="Nenhum evento encontrado" />}
+            refreshControl={
+              <RefreshControl refreshing={loading} onRefresh={getEventos} />
+            }
+
+          />
+          <ActionButton
+            buttonColor={colors.primaryColor}
+            onPress={() => navigation.navigate("DetalheHome")}
+          />
+        </>
+      )
+          :
+          <>
+            {/*<CardVazio msg="Nenhum evento encontrado" />*/}
+          </>
+      }
+    </Body>
+  );
 }

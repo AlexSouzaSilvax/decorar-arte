@@ -1,15 +1,16 @@
 import styled from "styled-components/native";
+import { colors } from "../../service/colors";
 
 export const Wrapper = styled.TouchableOpacity`
   justify-content: center;
-  background-color: #F3F3F3;  
+  background-color: ${colors.white2};  
   width: 95%;
   margin: 10px;
   border-radius: 6px;    
 `;
 
 export const Title = styled.Text`
-  color: #767676;
+  color: ${colors.gray};
   font-size: 18px;
   font-weight: 500;
   align-self: center;
@@ -35,12 +36,12 @@ export const TipoServico = styled.View`
   flex-direction: row;
   justify-content: center;
   padding: 3px;
-  background-color: #eee;  
+  background-color: ${colors.white3};  
   border-radius: 8px;
 `;
 
 export const NameTipoServico = styled.Text`
-  color: #ed0059;
+  color: ${colors.primaryColor};
   align-self: center;
   padding-right: 2px;
   font-weight: bold;
