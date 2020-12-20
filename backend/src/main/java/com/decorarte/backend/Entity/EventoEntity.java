@@ -17,6 +17,7 @@ public class EventoEntity {
 	private String nomeCliente;
 	private String telefoneCliente;
 	private String nomeEvento;
+	private String localEvento;
 	private Date dataEvento;
 	private String observacaoEvento;
 	private boolean pagoCobranca; // true = pago, false = não pago
@@ -64,6 +65,14 @@ public class EventoEntity {
 
 	public void setNomeEvento(String nomeEvento) {
 		this.nomeEvento = nomeEvento;
+	}
+
+	public String getLocalEvento() {
+		return localEvento;
+	}
+
+	public void setLocalEvento(String localEvento) {
+		this.localEvento = localEvento;
 	}
 
 	public Date getDataEvento() {
