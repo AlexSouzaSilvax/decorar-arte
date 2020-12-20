@@ -1,11 +1,13 @@
 import React from "react";
 import { Wrapper, Title, TipoServico, NameTipoServico, Tags, Top, View } from "./CardEvento.styles";
 import IconAntDesign from 'react-native-vector-icons/AntDesign';
+import { formatData, tiposServico } from "../../service/helper";
+import { colors } from '../../service/colors';
 
 export default function CardEvento({ evento, onPress }) {
   return (
     <Wrapper onPress={onPress} style={{
-      shadowColor: "#000",
+      shadowColor: colors.black,
       shadowOffset: {
         width: 0,
         height: 2,
@@ -17,12 +19,12 @@ export default function CardEvento({ evento, onPress }) {
     }}>
 
       <Top>
-        <IconAntDesign name="user" color={"#767676"} size={15} />
+        <IconAntDesign name="user" color={colors.gray} size={15} />
         <Title style={{ fontSize: 15 }} numberOfLines={1}>{evento.nomeCliente}</Title>
         <Tags>
           <TipoServico>
-            <IconAntDesign name="tagso" color={evento.eventoConfirmado ? "green" : "#ed0059"} />
-            <NameTipoServico style={{ color: evento.eventoConfirmado ? "green" : "#ed0059" }}>{evento.tipoServico}</NameTipoServico>
+            <IconAntDesign name="tagso" color={evento.pagoCobranca ? "green" : colors.primaryColor} />
+            <NameTipoServico style={{ color: evento.pagoCobranca ? "green" : colors.primaryColor }}>{tiposServico[evento.tipoServico].label}</NameTipoServico>
           </TipoServico>
         </Tags>
       </Top>
@@ -36,7 +38,7 @@ export default function CardEvento({ evento, onPress }) {
           <Title style={{ fontSize: 15, alignSelf: "flex-start" }} numberOfLines={2}>{evento.localEvento}</Title>
         </View>
         <View>
-          <Title style={{ fontSize: 15, alignSelf: "flex-end" }}>{evento.dataEvento}</Title>
+          <Title style={{ fontSize: 15, alignSelf: "flex-end" }}>{formatData(evento.dataEvento)}</Title>
         </View>
       </Top>
 
