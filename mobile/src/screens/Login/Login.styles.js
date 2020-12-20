@@ -1,8 +1,9 @@
 import styled from "styled-components/native";
 import { Dimensions } from 'react-native';
+import { colors } from "../../service/colors";
 
 export const Wrapper = styled.View`
-  background-color: #ed0059;
+  background-color: ${colors.primaryColor};
   height: 100%;
   width: 100%;
   display: flex;
@@ -12,7 +13,7 @@ export const Wrapper = styled.View`
 export const Header = styled.View`
   width: 100%;
   height: ${Dimensions.get("screen").height - 450};
-  background-color: #ed0059;
+  background-color: ${colors.primaryColor};
   border-bottom-right-radius: 150;
   display: flex;
   align-items: center;  
@@ -22,7 +23,7 @@ export const Header = styled.View`
 export const Header2 = styled.View`
   width: 100%;
   height: ${Dimensions.get("screen").height - 200};
-  background-color: #fefefe;
+  background-color: ${colors.white};
   border-top-right-radius: 65;
   display: flex;
   align-items: center;  
@@ -34,7 +35,7 @@ export const ViewTitle = styled.View`
 `;
 
 export const Title = styled.Text`
-  color: #FeFeFe;
+  color: ${colors.white};
   font-size: 45px;
   font-weight: bold;
 `;
@@ -47,7 +48,7 @@ export const Img = styled.Image`
 
 export const Btn = styled.TouchableOpacity`
   margin-top: 50;
-  background-color: #ed0059;
+  background-color: ${colors.primaryColor};
   width: ${Dimensions.get("screen").width - 100};
   height: 50px;
   border-radius: 4px;
@@ -56,6 +57,6 @@ export const Btn = styled.TouchableOpacity`
 `;
 
 export const TxtBtn = styled.Text`
-  color: #FeFeFe;
+  color: ${colors.white};
   font-size: 22px;
 `;
