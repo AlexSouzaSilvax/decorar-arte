@@ -9,7 +9,6 @@ import { BASE_URL } from "../../service/api";
 import { Spinner } from "native-base";
 import { RefreshControl } from 'react-native';
 import { colors } from '../../service/colors';
-import { flashMessage } from '../../service/helper';
 
 export default function Home({ navigation }) {
   const [eventos, setEventos] = useState([]);
@@ -24,8 +23,7 @@ export default function Home({ navigation }) {
     await fetch(`${BASE_URL}/evento/`)
       .then((response) => response.json())
       .then((responseJson) => {
-        setEventos(responseJson);
-        flashMessage("Lista atualizada", "success");
+        setEventos(responseJson);        
       })
       .catch((error) => console.error(error));
     setLoading(false);
