@@ -1,15 +1,21 @@
 import React from "react";
 import { Wrapper, Title, BtnFiltro } from "./Header.styles";
-import IconAntDesign from 'react-native-vector-icons/AntDesign';
+import { Icon } from 'native-base';
 import { colors } from '../../service/colors';
 
-export default function Header({ title, onPressFiltro }) {
+export default function Header({ title, onPressFiltro, onPressVoltar, styleTitle }) {
   return (
     <Wrapper>
-      <Title>{title}</Title>
+      {/*BTNVOLTAR*/}
+      { onPressVoltar ?
+        <BtnFiltro onPress={onPressVoltar}>
+          <Icon name="chevron-left" type="Entypo" style={{ color: colors.white, alignSelf: "flex-start", paddingStart: 10 }} />
+        </BtnFiltro>
+        : <></>}
+      <Title style={styleTitle} >{title}</Title>
       { onPressFiltro ?
         <BtnFiltro onPress={onPressFiltro}>
-          <IconAntDesign name="filter" size={22} style={{ color: colors.white, alignSelf: "flex-end", paddingEnd: 20 }} />
+          <Icon name="filter" type="AntDesign" style={{ color: colors.white, alignSelf: "flex-end", paddingEnd: 20 }} />
         </BtnFiltro>
         : <></>}
     </Wrapper>
