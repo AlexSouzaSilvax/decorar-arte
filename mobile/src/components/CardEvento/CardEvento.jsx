@@ -19,8 +19,10 @@ export default function CardEvento({ evento, onPress }) {
     }}>
 
       <Top>
+        <View style={{justifyContent: "center", alignItems: "center", flexDirection: "row", flex: 1}}>
         <IconAntDesign name="user" color={colors.gray} size={15} />
-        <Title style={{ fontSize: 15 }} numberOfLines={1}>{evento.nomeCliente}</Title>
+        <Title style={{ fontSize: 14, paddingStart: 2 }} numberOfLines={1}>{evento.nomeCliente}</Title>
+        </View>
         <Tags>
           <TipoServico>
             <IconAntDesign name="tagso" color={evento.pagoCobranca ? "green" : colors.primaryColor} />
