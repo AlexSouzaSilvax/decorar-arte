@@ -7,4 +7,6 @@ export const colors = {
     white3: "#eee",
     grayBorder: "#e6e6e680",
     white0: "#FFF",
+    redWhite: "#FF000050",
+    greenWhite: "#00a00050"
 };
