@@ -5,10 +5,11 @@ import Header from "../../components/Header";
 import CardEvento from "../../components/CardEvento";
 import CardVazio from "../../components/CardVazio";
 import ActionButton from "react-native-action-button";
-import { BASE_URL } from "../../service/api";
+import { api, BASE_URL } from "../../service/api";
 import { Spinner } from "native-base";
-import { RefreshControl } from 'react-native';
+import { BackHandler, RefreshControl } from 'react-native';
 import { colors } from '../../service/colors';
+import { flashMessage } from "../../service/helper";
 
 export default function Home({ navigation }) {
   const [eventos, setEventos] = useState([]);
@@ -20,21 +21,27 @@ export default function Home({ navigation }) {
 
   async function getEventos() {
     setLoading(true);
-    await fetch(`${BASE_URL}/evento/`)
-      .then((response) => response.json())
-      .then((responseJson) => {
-        setEventos(responseJson);        
+    await api('/evento/')
+      .then((response) => {
+        setEventos(response.data);
       })
       .catch((error) => console.error(error));
     setLoading(false);
   }
+
+  BackHandler.addEventListener("hardwareBackPress", () => {
+    navigation.navigate("Home");
+    return true;
+  });
 
   return (
     <Body>
       <Wrapper>
         <Header
           title="DecorArte"
-          onPressFiltro={() => alert("Em desenvolvimento")}
+          onPressFiltro={() => flashMessage("Em desenvolvimento", "aaa")}
+          onPressMenu={() => flashMessage("Em desenvolvimento", "aaa")}
+          styleTitle={{ left: 40 }}
         />
       </Wrapper>
       <A>
@@ -43,7 +50,7 @@ export default function Home({ navigation }) {
 
       {loading ? (
         <ViewLoading>
-          <Spinner size="small" color={colors.primaryColor} />
+          <Spinner size="large" color={colors.primaryColor} />
         </ViewLoading>
       ) : eventos ? (
         <>
@@ -59,7 +66,7 @@ export default function Home({ navigation }) {
                 }
               />
             )}
-            //ListEmptyComponent={<CardVazio msg="Nenhum evento encontrado" />}
+            ListEmptyComponent={<CardVazio msg="Nenhum evento encontrado" />}
             refreshControl={
               <RefreshControl refreshing={loading} onRefresh={getEventos} />
             }
@@ -67,7 +74,7 @@ export default function Home({ navigation }) {
           />
           <ActionButton
             buttonColor={colors.primaryColor}
-            onPress={() => navigation.navigate("DetalheHome")}
+            onPress={() => navigation.navigate("DetalheHome", { evento: {} })}
           />
         </>
       )
