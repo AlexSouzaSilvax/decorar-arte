@@ -1,6 +1,6 @@
-import React, { useState } from "react";
-import { StyleSheet, Dimensions, ScrollView, View, TouchableOpacity, Text } from 'react-native';
-import { Picker, Label, Form, Item, Input, ActionSheet } from 'native-base';
+import React, { useState, useEffect } from "react";
+import { StyleSheet, Dimensions, ScrollView, View, TouchableOpacity, Text, TextInput, BackHandler } from 'react-native';
+import { Picker, Label, Form, Item, Input, ActionSheet, Spinner } from 'native-base';
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
 import { TextInputMask } from "react-native-masked-text";
 import {
@@ -8,49 +8,87 @@ import {
 } from "./DetalheHome.styles";
 import Header from '../../components/Header';
 import { colors } from "../../service/colors";
-import { tiposServico } from "../../service/helper";
+import { flashMessage, formatData, formatData2, tiposServico } from "../../service/helper";
+import { api, BASE_URL } from "../../service/api";
 
-var BUTTONS = ["Decoração", "Pegue e Monte", "Cancelar"];
-var CANCEL_INDEX = 2;
+var BUTTONS = ["Decoração", "Pegue e Monte"];
 
-export default function DetalheHome({ route, navigation }) {
+export default function DetalheHome({ navigation }) {
 
-    const { evento } = route.params;
+    let evento = navigation.getParam('evento');
 
-    const [dataEvento, setDataEvento] = useState(evento.dataEvento);
-    const [dtPrevQuitaCobranca, setDtPrevQuitaCobranca] = useState(evento.dtPrevQuitaCobranca);
-    const [id, setId] = useState(evento.id);
-    const [localEvento, setLocalEvento] = useState(evento.localEvento);
-    const [nomeCliente, setNomeCliente] = useState(evento.nomeCliente);
-    const [nomeEvento, setNomeEvento] = useState(evento.nomeEvento);
-    const [observacaoEvento, setObservacaoEvento] = useState(evento.observacaoEvento);
-    const [observacaoCobranca, setObservacaoCobranca] = useState(evento.observacao_cobranca);
-    const [pagoCobranca, setPagoCobranca] = useState(evento.pagoCobranca);
-    const [telefoneCliente, setTelefoneCliente] = useState(evento.telefoneCliente);
-    const [tipoPgtoCobranca, setTipoPgtoCobranca] = useState(evento.tipoPgtoCobranca);
-    const [tipoServico, setTipoServico] = useState(evento.tipoServico);
-    const [valorCobranca, setValorCobranca] = useState(evento.valorCobranca);
-    const [valorEntradaCobranca, setValorEntradaCobranca] = useState(evento.valorEntradaCobranca);
+    const [dataEvento, setDataEvento] = useState();
+    const [dtPrevQuitaCobranca, setDtPrevQuitaCobranca] = useState();
+    const [id, setId] = useState();
+    const [localEvento, setLocalEvento] = useState();
+    const [nomeCliente, setNomeCliente] = useState();
+    const [nomeEvento, setNomeEvento] = useState();
+    const [observacaoEvento, setObservacaoEvento] = useState();
+    const [observacaoCobranca, setObservacaoCobranca] = useState();
+    const [pagoCobranca, setPagoCobranca] = useState();
+    const [telefoneCliente, setTelefoneCliente] = useState();
+    const [tipoPgtoCobranca, setTipoPgtoCobranca] = useState();
+    const [tipoServico, setTipoServico] = useState();
+    const [valorCobranca, setValorCobranca] = useState();
+    const [valorEntradaCobranca, setValorEntradaCobranca] = useState();
+    const [loading, setLoading] = useState(false);
 
-    /*
-        "id": 3,
-        "tipoServico": 1,
+    useEffect(() => {
+        if (evento) {
+            setDataEvento(evento.dataEvento);
+            setDtPrevQuitaCobranca(evento.dtPrevQuitaCobranca);
+            setId(evento.id);
+            setLocalEvento(evento.localEvento);
+            setNomeCliente(evento.nomeCliente)
+            setNomeEvento(evento.nomeEvento)
+            setObservacaoEvento(evento.observacaoEvento)
+            setObservacaoCobranca(evento.observacao_cobranca);
+            setPagoCobranca(evento.pagoCobranca)
+            setTelefoneCliente(evento.telefoneCliente)
+            setTipoPgtoCobranca(evento.tipoPgtoCobranca)
+            setTipoServico(evento.tipoServico ? evento.tipoServico : 0)
+            setValorCobranca(evento.valorCobranca);
+            setValorEntradaCobranca(evento.valorEntradaCobranca);
+        }
+    }, [])
 
-        "nomeCliente": "Janaína Galante",
-        "telefoneCliente": "(21) 9 6464-5673",    
-        
-        "nomeEvento": "Happy Hour Decorarte LTDA",
-        "localEvento": null,        
-        "dataEvento": "2021-01-09",
-        "observacaoEvento": "Não permitido cores preta.",
+    async function salvar() {
+        setLoading(true);
+        await api.post('/evento/salvar', {
+            id: id,
+            tipoServico: tipoServico,
+            nomeCliente: nomeCliente,
+            telefoneCliente: telefoneCliente,
+            nomeEvento: nomeEvento,
+            localEvento: localEvento,
+            dataEvento: formatData2(dataEvento),
+            observacaoEvento: observacaoEvento,
+            pagoCobranca: pagoCobranca,
+            valorCobranca: valorCobranca,
+            tipoPgtoCobranca: tipoPgtoCobranca,
+            valorEntradaCobranca: valorEntradaCobranca,
+            dtPrevQuitaCobranca: dtPrevQuitaCobranca,
+            observacao_cobranca: observacaoCobranca
+        })
+            .then((response) => {
+                if (response.status !== 200) {
+                    flashMessage("Houve um problema, tente novamente", "danger");
+                } else {
+                    flashMessage("Salvo com sucesso", "success");
+                }
+                console.log(response.data);
+            })
+            .catch((error) => {
+                flashMessage("Falha na conexão com o servidor, tente novamente", "danger");
+                console.error(error);
+            });
+        setLoading(false);
+    }
 
-        "pagoCobranca": false,        
-        "valorCobranca": 2500,
-        "tipoPgtoCobranca": 1,
-        "valorEntradaCobranca": 1000,
-        "dtPrevQuitaCobranca": "2021-01-09",        
-        "observacao_cobranca": "Entrada de mil reais, irá quitar no dia do evento",        
-    */
+    BackHandler.addEventListener("hardwareBackPress", () => {
+        navigation.navigate("Home");
+        return true;
+      });
 
     return (
         <Body>
@@ -76,14 +114,20 @@ export default function DetalheHome({ route, navigation }) {
                                 ActionSheet.show(
                                     {
                                         options: BUTTONS,
-                                        cancelButtonIndex: CANCEL_INDEX,
                                         title: "Selecione um serviço"
                                     },
-                                    buttonIndex => setTipoServico(buttonIndex)
+                                    buttonIndex => {
+                                        if (buttonIndex == undefined) {
+                                            setTipoServico(tipoServico);
+                                        } else {
+                                            setTipoServico(buttonIndex);
+                                        }
+                                    }
+
                                 )
                             }}>
                                 <View style={{ padding: 7, backgroundColor: colors.white0, borderRadius: 12, borderWidth: 1, borderColor: colors.primaryColor }}>
-                                    <Text style={{ alignSelf: "flex-start", color: colors.primaryColor }}>{tiposServico[tipoServico].label}</Text>
+                                    <Text style={{ alignSelf: "flex-start", color: colors.primaryColor }}>{tiposServico[tipoServico ? tipoServico : 0].label}</Text>
                                 </View>
                             </TouchableOpacity>
                         </FormInfo>
@@ -116,14 +160,26 @@ export default function DetalheHome({ route, navigation }) {
                                 <Label>Local</Label>
                                 <Input style={styles.input} value={localEvento} onChangeText={setLocalEvento} />
                             </Item>
-                            <Item floatingLabel>
-                                <Label>Data</Label>
-                                <Input style={styles.input} value={dataEvento} onChangeText={setDataEvento} />
-                            </Item>
-                            <Item floatingLabel>
-                                <Label>Observação</Label>
-                                <Input style={styles.input} value={observacaoEvento} onChangeText={setObservacaoEvento} />
-                            </Item>
+                            <View style={[styles.inputContainer, { marginTop: 10 }]}>
+                                <Text style={styles.label}>Data</Text>
+                                <TextInputMask
+                                    type={"datetime"}
+                                    style={styles.inputTel}
+                                    value={dataEvento}
+                                    onChangeText={setDataEvento}
+                                />
+                            </View>
+                            <View style={[styles.inputContainer, styles.inputContainerObservacao, { marginTop: 10 }]}>
+                                <Text style={styles.label}>Observação</Text>
+                                <TextInput
+                                    multiline={true}
+                                    numberOfLines={5}
+                                    style={styles.inputObservacao}
+                                    value={observacaoEvento}
+                                    onChangeText={setObservacaoEvento}
+                                    placeholder="Ex: Festa começará à partir das 10hrs"
+                                />
+                            </View>
 
                         </FormInfo>
 
@@ -134,82 +190,62 @@ export default function DetalheHome({ route, navigation }) {
                                 <TituloFormInfo style={{ fontSize: 18, alignSelf: "center" }}>Pago</TituloFormInfo>
                                 <View style={{ flexDirection: "row", justifyContent: "center", alignItems: "center", padding: 5, marginTop: 5 }}>
                                     <TouchableOpacity style={{ margin: 5 }} onPress={() => setPagoCobranca(!pagoCobranca)}>
-                                        <View style={{ padding: 10, borderColor: 'green', borderWidth: 1, borderRadius: 4 }}>
-                                            <Text style={{ color: 'green', fontWeight: pagoCobranca ? '700' : '200' }}>Sim</Text>
+                                        <View style={{
+                                            padding: 10,
+                                            borderColor: pagoCobranca ? 'green' : colors.greenWhite,
+                                            borderWidth: 1,
+                                            borderRadius: 4
+                                        }}>
+                                            <Text style={{
+                                                color: pagoCobranca ? 'green' : colors.greenWhite,
+                                                fontWeight: pagoCobranca ? '700' : '200'
+                                            }}>Sim</Text>
                                         </View>
                                     </TouchableOpacity>
                                     <TouchableOpacity style={{ margin: 5 }} onPress={() => setPagoCobranca(!pagoCobranca)}>
-                                        <View style={{ padding: 10, borderColor: 'red', borderWidth: 1, borderRadius: 4 }}>
-                                            <Text style={{ color: 'red', fontWeight: pagoCobranca == false ? '700' : '200' }}>Não</Text>
+                                        <View style={{
+                                            padding: 10,
+                                            borderColor: pagoCobranca == false ? 'red' : colors.redWhite,
+                                            borderWidth: 1,
+                                            borderRadius: 4
+                                        }}>
+                                            <Text style={{
+                                                color: pagoCobranca == false ? 'red' : colors.redWhite,
+                                                fontWeight: pagoCobranca == false ? '700' : '200'
+                                            }}>Não</Text>
                                         </View>
                                     </TouchableOpacity>
                                 </View>
                             </View>
 
-
-
-                            <Item floatingLabel>
-                                <Label>Valor</Label>
-                                <Input style={styles.input} keyboardType="numeric" value={valorCobranca} onChangeText={setValorCobranca} />
-                            </Item>
-                            <Item floatingLabel>
-                                <Label>Forma de pagamento</Label>
-                                <Input style={styles.input} value={tipoPgtoCobranca} onChangeText={setTipoPgtoCobranca} />
-                            </Item>
-                            <Item floatingLabel>
-                                <Label>Valor de entrada</Label>
-                                <Input style={styles.input} value={valorEntradaCobranca} onChangeText={setValorEntradaCobranca} />
-                            </Item>
-
-                            <Item>
-                                <Label>Observação</Label>
-                                <Input style={styles.input} value={observacaoCobranca} onChangeText={setObservacaoCobranca} />
-                            </Item>
+                            <View style={[styles.inputContainer, { marginTop: 10 }]}>
+                                <Text style={styles.label}>Valor</Text>
+                                <TextInputMask
+                                    type={"money"}
+                                    style={styles.inputTel}
+                                    value={valorCobranca}
+                                    onChangeText={setValorCobranca}
+                                />
+                            </View>
+                            <View style={[styles.inputContainer, styles.inputContainerObservacao, { marginTop: 10 }]}>
+                                <Text style={styles.label}>Observação</Text>
+                                <TextInput
+                                    multiline={true}
+                                    numberOfLines={5}
+                                    style={styles.inputObservacao}
+                                    value={observacaoCobranca}
+                                    onChangeText={setObservacaoCobranca}
+                                    placeholder="Ex: Pagamento adiantado."
+                                />
+                            </View>
 
                         </FormInfo>
-
-                        {/*<Item>
-                        <View style={styles.wrapperPicker}>
-                            <Label>Tipo de Serviço</Label>
-                            <Picker
-                                note
-                                mode="dropdown"
-                                style={{ width: Dimensions.get("screen").width - 50 }}
-                            //selectedValue={}
-                            //onValueChange={() => {}}
-                            >
-                                <Picker.Item label="Pegue e Monte" value="0" />
-                                <Picker.Item label="Decoração" value="1" />
-                            </Picker>
-                        </View>
-                    </Item>
-                    <Item floatingLabel>
-                        <Label>Nome</Label>
-                        <Input value={''} style={styles.input} />
-                    </Item>
-                    <Item floatingLabel>
-                        <Label>Cliente</Label>
-                        <Input style={styles.input} />
-                    </Item>
-                    <Item floatingLabel>
-                        <Label>Contato</Label>
-                        <Input style={styles.input} />
-                    </Item>
-                    <Item floatingLabel>
-                        <Label>Local</Label>
-                        <Input style={styles.input} />
-                    </Item>
-                    <Item floatingLabel>
-                        <Label>Data do Evento</Label>
-                        <Input style={styles.input} />
-                    </Item>
-                    <Item floatingLabel>
-                        <Label>Observação</Label>
-                        <Input style={styles.input} />
-                    </Item>
-*/}
-                        <TouchableOpacity style={styles.button} onPress={() => { }}>
-                            <Text style={styles.btnLabel}>Salvar</Text>
+                        <TouchableOpacity style={styles.button} onPress={salvar}>
+                            {loading ?
+                                <Spinner size="large" color={colors.white} />
+                                :
+                                <Text style={styles.btnLabel}>Salvar</Text>
+                            }
                         </TouchableOpacity>
                     </Form>
                 </KeyboardAwareScrollView>
@@ -234,7 +270,7 @@ const styles = StyleSheet.create({
         width: Dimensions.get("screen").width - 60,
         height: 50,
         alignSelf: "center",
-        backgroundColor: '#ed0059',
+        backgroundColor: colors.primaryColor,
         marginTop: 35,
         justifyContent: "center",
         alignItems: "center",
@@ -252,15 +288,31 @@ const styles = StyleSheet.create({
     },
     inputTel: {
         alignSelf: "flex-start",
-        paddingStart: 10,
         marginTop: 8,
-        fontSize: 20,
+        fontSize: 18,
+        color: "#444",
+        width: Dimensions.get("screen").width - 90,
+    },
+    inputObservacao: {
+        alignSelf: "flex-start",
+        marginTop: 8,
+        fontSize: 18,
         color: "#444",
         width: Dimensions.get("screen").width - 90,
     },
     inputContainer: {
         width: Dimensions.get("screen").width - 90,
-        height: 50,
+        height: 62,
+        borderRadius: 5,
+        alignSelf: "center",
+        margin: 5,
+        left: 10,
+        borderBottomWidth: 1,
+        borderColor: "#d3d3d3",
+    },
+    inputContainerObservacao: {
+        width: Dimensions.get("screen").width - 90,
+        height: 158,
         borderRadius: 5,
         alignSelf: "center",
         margin: 5,
@@ -269,8 +321,8 @@ const styles = StyleSheet.create({
         borderColor: "#d3d3d3",
     },
     label: {
-        paddingStart: 4,
-        fontSize: 16,
+        paddingStart: 1,
+        fontSize: 15,
         color: colors.gray,
         fontWeight: "400",
     },
