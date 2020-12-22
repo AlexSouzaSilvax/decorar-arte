@@ -13,12 +13,25 @@ export const tiposServico = [
 ];
 
 export function formatData(data) {
-    var dia = data.substr(8, 9);
-    var mes = data.substr(5, 2);
-    var ano = data.substr(0, 4);
-    data = `${dia}/${mes}/${ano}`;
+    if (data) {
+        var dia = data.substr(8, 9);
+        var mes = data.substr(5, 2);
+        var ano = data.substr(0, 4);
+        data = `${dia}/${mes}/${ano}`;
+    }
     return data;
 }
+
+export function formatData2(data) {
+    if (data) {
+        var dia = data.substr(0, 2);
+        var mes = data.substr(3, 2);
+        var ano = data.substr(6, 4);
+        data = `${ano}-${mes}-${dia}`;
+    }
+    return data;
+}
+
 
 export function numberToReal(n) {
     return (
