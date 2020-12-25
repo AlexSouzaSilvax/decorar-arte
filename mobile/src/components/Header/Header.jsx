@@ -3,15 +3,9 @@ import { Wrapper, Title, BtnFiltro } from "./Header.styles";
 import { Icon } from 'native-base';
 import { colors } from '../../service/colors';
 
-export default function Header({ title, onPressFiltro, onPressVoltar, styleTitle, onPressMenu }) {
+export default function Header({ title, onPressFiltro, onPressVoltar, styleTitle }) {
   return (
     <Wrapper>
-      {/*BTNMenu*/}
-      { onPressMenu ?
-        <BtnFiltro onPress={onPressMenu}>
-          <Icon name="menu" type="Entypo" style={{ color: colors.white, alignSelf: "flex-start", paddingStart: 25 }} />
-        </BtnFiltro>
-        : <></>}
       {/*BTNVOLTAR*/}
       { onPressVoltar ?
         <BtnFiltro onPress={onPressVoltar}>
