@@ -17,7 +17,7 @@ export const Body = styled.View`
 export const Lista = styled.FlatList`
   /*  justify-content: center;
   align-items: center;*/
-  margin-top: -25;
+  margin-top: -23;
   padding-top: 15;
 `;
 
