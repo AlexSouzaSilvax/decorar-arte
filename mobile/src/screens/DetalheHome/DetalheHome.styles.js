@@ -46,3 +46,17 @@ export const TituloFormInfo = styled.Text`
   font-size: 22;
   color: ${colors.gray};
 `;
+
+export const FormImagem = styled.View`  
+  width: ${Dimensions.get("screen").width};      
+  justify-content: center;
+  align-items: center;  
+  margin-top: -25;
+`;
+
+export const Image = styled.Image`
+  width: ${Dimensions.get('screen').width};
+  height: 300;
+  align-self: center;    
+  
+`;
