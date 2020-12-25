@@ -7,7 +7,7 @@ import DetalheHome from "./screens/DetalheHome";
 
 const Routes = createAppContainer(
     createSwitchNavigator({
-        Login,
+        //Login,
         Home,
         DetalheHome
     })
