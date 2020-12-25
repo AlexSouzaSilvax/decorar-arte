@@ -66,7 +66,7 @@ export function flashMessage(message, type) {
         buttonText: "Ok",
         position: "top",
         type: type === "info" ? "warning" : type, //danger, warning, success
-        duration: 6000,
+        duration: 4000,
         textStyle: {
             color: colors.white,
             fontSize: 17,
@@ -92,4 +92,15 @@ export function flashMessage(message, type) {
             elevation: 1,
         },
     });
+}
+
+export function validValue(valor) {
+    if (valor) {
+        for (var i = 0; i < valor.length; i++) {
+            if (valor.split("")[i] === "R") {
+                valor = valor.substr((i + 2), valor.length);
+            }
+        }
+    }
+    return parseFloat(valor);
 }
