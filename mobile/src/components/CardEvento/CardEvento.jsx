@@ -1,12 +1,12 @@
 import React from "react";
-import { Wrapper, Title, TipoServico, NameTipoServico, Tags, Top, View } from "./CardEvento.styles";
+import { Wrapper, Title, TipoServico, NameTipoServico, Tags, Top, View, Image } from "./CardEvento.styles";
 import IconAntDesign from 'react-native-vector-icons/AntDesign';
 import { formatData, tiposServico } from "../../service/helper";
 import { colors } from '../../service/colors';
 
-export default function CardEvento({ evento, onPress }) {
+export default function CardEvento({ evento, eventoImagem, onPress, onLongPress }) {
   return (
-    <Wrapper onPress={onPress} style={{
+    <Wrapper style={{
       shadowColor: colors.black,
       shadowOffset: {
         width: 0,
@@ -16,12 +16,15 @@ export default function CardEvento({ evento, onPress }) {
       shadowRadius: 3.84,
       elevation: 5,
       padding: 10
-    }}>
+    }}
+      onPress={onPress}
+      onLongPress={onLongPress}
+    >
 
       <Top>
-        <View style={{justifyContent: "center", alignItems: "center", flexDirection: "row", flex: 1}}>
-        <IconAntDesign name="user" color={colors.gray} size={15} />
-        <Title style={{ fontSize: 14, paddingStart: 2 }} numberOfLines={1}>{evento.nomeCliente}</Title>
+        <View style={{ justifyContent: "center", alignItems: "center", flexDirection: "row", flex: 1 }}>
+          <IconAntDesign name="user" color={colors.gray} size={15} />
+          <Title style={{ fontSize: 14, paddingStart: 2 }} numberOfLines={1}>{evento.nomeCliente}</Title>
         </View>
         <Tags>
           <TipoServico>
@@ -32,7 +35,16 @@ export default function CardEvento({ evento, onPress }) {
       </Top>
 
       <Top style={{ marginTop: 10 }}>
-        <Title numberOfLines={2}>{evento.nomeEvento}</Title>
+        <Title style={{ fontWeight: '600' }} numberOfLines={2}>{evento.nomeEvento}</Title>
+      </Top>
+
+      <Top style={{
+        justifyContent: "center",
+        alignItems: "center",
+        marginTop: 10
+      }}>
+        <Image source={{ uri: eventoImagem }}
+        />
       </Top>
 
       <Top style={{ marginTop: 10 }}>
