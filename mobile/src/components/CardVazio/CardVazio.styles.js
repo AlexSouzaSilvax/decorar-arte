@@ -16,3 +16,7 @@ export const Text = styled.Text`
     margin-start: 10;
     align-self: center;
 `;
+
+export const Image = styled.Image`
+
+`;
