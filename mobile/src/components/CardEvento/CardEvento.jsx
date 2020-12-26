@@ -4,7 +4,7 @@ import IconAntDesign from 'react-native-vector-icons/AntDesign';
 import { formatData, tiposServico } from "../../service/helper";
 import { colors } from '../../service/colors';
 
-export default function CardEvento({ evento, eventoImagem, onPress, onLongPress }) {
+export default function CardEvento({ evento, onPress, onLongPress }) {
   return (
     <Wrapper style={{
       shadowColor: colors.black,
@@ -43,7 +43,7 @@ export default function CardEvento({ evento, eventoImagem, onPress, onLongPress 
         alignItems: "center",
         marginTop: 10
       }}>
-        <Image source={{ uri: eventoImagem }}
+        <Image source={{ uri: `data:image/jpg;base64,${evento.imagem}` }}
         />
       </Top>
 
