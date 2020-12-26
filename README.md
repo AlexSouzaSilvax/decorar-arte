@@ -3,6 +3,14 @@
 </h1>
 
 <br>
+  <p align="center" style="margin: 5px;">
+    <img alt="print1" src="./assets/print1.jpeg" height="600px">
+    <img alt="print2" src="./assets/print2.jpeg" height="600px">
+    <img alt="print3" src="./assets/print3.jpeg" height="600px">
+    <img alt="print4" src="./assets/print4.jpeg" height="600px">
+  </p>
+
+<br>
 
 ## 📛 Tecnologias
 
@@ -54,11 +62,9 @@ return BODY:
         "dataEvento": date,
         "observacaoEvento": string,
         "pagoCobranca": boolean,
-        "valorCobranca": double,
-        "tipoPgtoCobranca": int,
-        "valorEntradaCobranca": int,
-        "dtPrevQuitaCobranca": date,
-        "observacao_cobranca": string
+        "valorCobranca": double,        
+        "observacaoCobranca": string,
+        "imagem": string (base64)
     }
 ]
 
@@ -81,11 +87,9 @@ return BODY:
         "dataEvento": date,
         "observacaoEvento": string,
         "pagoCobranca": boolean,
-        "valorCobranca": double,
-        "tipoPgtoCobranca": int,
-        "valorEntradaCobranca": int,
-        "dtPrevQuitaCobranca": date,
-        "observacao_cobranca": string
+        "valorCobranca": double,        
+        "observacaoCobranca": string,
+        "imagem": string (base64
     }
 ]
 
@@ -109,11 +113,9 @@ return BODY:
         "dataEvento": date,
         "observacaoEvento": string,
         "pagoCobranca": boolean,
-        "valorCobranca": double,
-        "tipoPgtoCobranca": int,
-        "valorEntradaCobranca": int,
-        "dtPrevQuitaCobranca": date,
-        "observacao_cobranca": string
+        "valorCobranca": double,        
+        "observacaoCobranca": string,
+        "imagem": string (base64)
     }
 ]
 
