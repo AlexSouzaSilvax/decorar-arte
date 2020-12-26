@@ -19,6 +19,8 @@ export function formatData(data) {
         var ano = data.substr(0, 4);
         data = `${dia}/${mes}/${ano}`;
         return data;
+    } else {
+        data = '-';
     }
     return data;
 }
