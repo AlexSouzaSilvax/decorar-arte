@@ -21,7 +21,6 @@ var BUTTONS_IMAGE = ["Câmera", "Selecionar da Galeria", "Cancelar"];
 export default function DetalheHome({ navigation }) {
 
     let evento = navigation.getParam('evento');
-    let eventoImagem = navigation.getParam('eventoImagem');
 
     const [dataEvento, setDataEvento] = useState();
     const [dtPrevQuitaCobranca, setDtPrevQuitaCobranca] = useState();
@@ -55,16 +54,14 @@ export default function DetalheHome({ navigation }) {
             setNomeCliente(evento.nomeCliente)
             setNomeEvento(evento.nomeEvento)
             setObservacaoEvento(evento.observacaoEvento)
-            setObservacaoCobranca(evento.observacao_cobranca);
+            setObservacaoCobranca(evento.observacaoCobranca);
             setPagoCobranca(evento.pagoCobranca)
             setTelefoneCliente(evento.telefoneCliente)
             setTipoPgtoCobranca(evento.tipoPgtoCobranca)
             setTipoServico(evento.tipoServico ? evento.tipoServico : 0)
             setValorCobranca(evento.valorCobranca);
             setValorEntradaCobranca(evento.valorEntradaCobranca);
-        }
-        if (eventoImagem) {
-            setImagem(eventoImagem);
+            setImagem(evento.imagem);
         }
     }, []);
 
@@ -91,7 +88,8 @@ export default function DetalheHome({ navigation }) {
             tipoPgtoCobranca: tipoPgtoCobranca,
             valorEntradaCobranca: valorEntradaCobranca,
             dtPrevQuitaCobranca: dtPrevQuitaCobranca,
-            observacao_cobranca: observacaoCobranca
+            observacaoCobranca: observacaoCobranca,            
+            imagem: imagem
         })
             .then((response) => {
                 if (response.status !== 200) {
@@ -99,30 +97,6 @@ export default function DetalheHome({ navigation }) {
                 } else {
                     const { id } = response.data;
                     setId(id);
-                    if (imagem) {
-                        salvarImagem(id);
-                    } else {
-                        flashMessage("Salvo com sucesso", "success");
-                        setLoading(false);
-                    }
-                }
-            })
-            .catch((error) => {
-                flashMessage("Falha na conexão com o servidor, tente novamente", "danger");
-                console.error(error);
-            });
-    }
-
-    async function salvarImagem(idEvento) {
-        await api.post('/evento/salvar_imagem', {
-            //id,
-            idEvento: idEvento,
-            base64: imagem
-        })
-            .then((response) => {
-                if (response.status !== 200) {
-                    flashMessage("Houve um problema, tente novamente", "danger");
-                } else {
                     flashMessage("Salvo com sucesso", "success");
                 }
             })
@@ -385,7 +359,7 @@ export default function DetalheHome({ navigation }) {
                         </FormInfo>
 
                         {loading ?
-                            <View style={styles.button} onPress={salvar}>
+                            <View style={styles.button}>
                                 <Spinner size="large" color={colors.white} />
                             </View>
                             :
