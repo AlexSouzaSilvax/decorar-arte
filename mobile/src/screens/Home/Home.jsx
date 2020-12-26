@@ -13,7 +13,6 @@ import { flashMessage } from "../../service/helper";
 
 export default function Home({ navigation }) {
   const [eventos, setEventos] = useState([]);
-
   const [loading, setLoading] = useState(true);
   const [tamanhoLista, setTamanhoLista] = useState(0);
   const [tamanhoLista2, setTamanhoLista2] = useState(0);
@@ -93,7 +92,7 @@ export default function Home({ navigation }) {
       ) : eventos ? (
         <>
           <Lista
-            style={{ paddingBottom: 1 }}
+            style={{ flex: 1 }}
             showsVerticalScrollIndicator={false}
             data={eventos}
             keyExtractor={(e) => e.id.toString()}
