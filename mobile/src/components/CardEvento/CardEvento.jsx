@@ -1,10 +1,12 @@
 import React from "react";
-import { Wrapper, Title, TipoServico, NameTipoServico, Tags, Top, View, Image } from "./CardEvento.styles";
+import { Wrapper, Title, TipoServico, NameTipoServico, Tags, Top } from "./CardEvento.styles";
 import IconAntDesign from 'react-native-vector-icons/AntDesign';
 import { formatData, tiposServico } from "../../service/helper";
 import { colors } from '../../service/colors';
+import { Image, Dimensions, Text, View } from 'react-native';
 
 export default function CardEvento({ evento, onPress, onLongPress }) {
+
   return (
     <Wrapper style={{
       shadowColor: colors.black,
@@ -38,21 +40,17 @@ export default function CardEvento({ evento, onPress, onLongPress }) {
         <Title style={{ fontWeight: '600' }} numberOfLines={2}>{evento.nomeEvento}</Title>
       </Top>
 
-      <Top style={{
-        justifyContent: "center",
-        alignItems: "center",
-        marginTop: 10
-      }}>
-        <Image source={{ uri: `data:image/jpg;base64,${evento.imagem}` }}
+      <Top style={{ marginTop: 10, justifyContent: "center", alingItems: "center" }}>
+        <Image style={{ width: Dimensions.get('screen').width - 30, height: 200, borderRadius: 8, alignSelf: 'center' }} source={{ uri: `data:image/jpg;base64,${evento.imagem}` }}
         />
       </Top>
 
       <Top style={{ marginTop: 10 }}>
         <View style={{ flex: 1 }}>
-          <Title style={{ fontSize: 15, alignSelf: "flex-start" }} numberOfLines={2}>{evento.localEvento}</Title>
+          <Text style={{ fontSize: 15, alignSelf: "flex-start" }} numberOfLines={2}>{evento.localEvento}</Text>
         </View>
         <View>
-          <Title style={{ fontSize: 15, alignSelf: "flex-end" }}>{formatData(evento.dataEvento)}</Title>
+          <Text style={{ fontSize: 15, alignSelf: "flex-end" }}>{formatData(evento.dataEvento)}</Text>
         </View>
       </Top>
 
