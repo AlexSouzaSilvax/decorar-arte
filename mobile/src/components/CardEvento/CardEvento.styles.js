@@ -1,6 +1,5 @@
 import styled from "styled-components/native";
 import { colors } from "../../service/colors";
-import { Dimensions } from 'react-native';
 
 export const Wrapper = styled.TouchableOpacity`
   justify-content: center;
@@ -23,10 +22,6 @@ export const Top = styled.View`
   width: 100%;
 `;
 
-export const View = styled.View`
-  
-`;
-
 export const Tags = styled.View`
   justify-content: flex-end;
   align-self: center;  
@@ -47,12 +42,3 @@ export const NameTipoServico = styled.Text`
   padding-right: 2px;
   font-weight: bold;
 `;
-
-export const Image = styled.Image`
-  width: ${Dimensions.get('screen').width - 30};
-  height: 200;
-  align-self: center;
-  border-width: 0.5;
-  border-color: ${colors.white2};
-  border-radius: 8;
-`
