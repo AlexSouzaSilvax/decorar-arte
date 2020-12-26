@@ -21,10 +21,7 @@ public class Evento {
 	private Date dataEvento;
 	private String observacaoEvento;
 	private boolean pagoCobranca; // true = pago, false = não pago
-	private double valorCobranca;
-	private int tipoPgtoCobranca; // 0 = À Vista, 1 = À Prazo, 2 = Cartão de Crédito/Débito
-	private double valorEntradaCobranca;
-	private Date dtPrevQuitaCobranca;
+	private double valorCobranca;	
 	private String observacaoCobranca;
 	private String imagem;
 
@@ -108,30 +105,6 @@ public class Evento {
 		this.valorCobranca = valorCobranca;
 	}
 
-	public int getTipoPgtoCobranca() {
-		return tipoPgtoCobranca;
-	}
-
-	public void setTipoPgtoCobranca(int tipoPgtoCobranca) {
-		this.tipoPgtoCobranca = tipoPgtoCobranca;
-	}
-
-	public double getValorEntradaCobranca() {
-		return valorEntradaCobranca;
-	}
-
-	public void setValorEntradaCobranca(double valorEntradaCobranca) {
-		this.valorEntradaCobranca = valorEntradaCobranca;
-	}
-
-	public Date getDtPrevQuitaCobranca() {
-		return dtPrevQuitaCobranca;
-	}
-
-	public void setDtPrevQuitaCobranca(Date dtPrevQuitaCobranca) {
-		this.dtPrevQuitaCobranca = dtPrevQuitaCobranca;
-	}
-
 	public String getObservacaoCobranca() {
 		return observacaoCobranca;
 	}
@@ -149,3 +122,4 @@ public class Evento {
 	}
 
 }
+
