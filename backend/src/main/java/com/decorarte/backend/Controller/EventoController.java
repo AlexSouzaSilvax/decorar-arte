@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import java.util.List;
 import java.util.NoSuchElementException;
 
-import com.decorarte.backend.Entity.EventoEntity;
+import com.decorarte.backend.Entity.Evento;
 import com.decorarte.backend.Repository.EventoRepository;
 
 @RestController
@@ -27,8 +27,8 @@ public class EventoController {
 	@GetMapping
 	@CrossOrigin
 	@RequestMapping("/")
-	public ResponseEntity<List<EventoEntity>> listarEventos() {
-		List<EventoEntity> listaEventos = eventoRepository.findAll();
+	public ResponseEntity<List<Evento>> listarEventos() {
+		List<Evento> listaEventos = eventoRepository.findAll();
 		return ResponseEntity.ok().header("mensagem", "Sucesso").header("result", "true").body(listaEventos);
 
 	}
@@ -36,8 +36,8 @@ public class EventoController {
 	@GetMapping
 	@CrossOrigin
 	@RequestMapping("/buscar")
-	public ResponseEntity<EventoEntity> buscarEventoById(@RequestParam long id) {
-		EventoEntity evento = null;
+	public ResponseEntity<Evento> buscarEventoById(@RequestParam long id) {
+		Evento evento = null;
 		String msg = "Sucesso";
 		String result = "true";
 		try {
@@ -52,7 +52,7 @@ public class EventoController {
 	@PostMapping
 	@CrossOrigin
 	@RequestMapping("/salvar")
-	public ResponseEntity<EventoEntity> adicionarEvento(@RequestBody EventoEntity evento) {
+	public ResponseEntity<Evento> adicionarEvento(@RequestBody Evento evento) {
 		if (eventoRepository.existsById(evento.getId())) {
 			eventoRepository.deleteById(evento.getId());
 		}
