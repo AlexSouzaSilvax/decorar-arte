@@ -8,7 +8,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
 @Entity
-public class EventoEntity {
+public class Evento {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
@@ -25,7 +25,8 @@ public class EventoEntity {
 	private int tipoPgtoCobranca; // 0 = À Vista, 1 = À Prazo, 2 = Cartão de Crédito/Débito
 	private double valorEntradaCobranca;
 	private Date dtPrevQuitaCobranca;
-	private String observacao_cobranca;
+	private String observacaoCobranca;
+	private String imagem;
 
 	public long getId() {
 		return id;
@@ -131,12 +132,20 @@ public class EventoEntity {
 		this.dtPrevQuitaCobranca = dtPrevQuitaCobranca;
 	}
 
-	public String getObservacao_cobranca() {
-		return observacao_cobranca;
+	public String getObservacaoCobranca() {
+		return observacaoCobranca;
 	}
 
-	public void setObservacao_cobranca(String observacao_cobranca) {
-		this.observacao_cobranca = observacao_cobranca;
+	public void setObservacaoCobranca(String observacaoCobranca) {
+		this.observacaoCobranca = observacaoCobranca;
+	}
+
+	public String getImagem() {
+		return imagem;
+	}
+
+	public void setImagem(String imagem) {
+		this.imagem = imagem;
 	}
 
 }
