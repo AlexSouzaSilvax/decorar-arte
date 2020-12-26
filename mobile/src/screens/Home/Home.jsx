@@ -13,7 +13,7 @@ import { flashMessage } from "../../service/helper";
 
 export default function Home({ navigation }) {
   const [eventos, setEventos] = useState([]);
-  const [eventoImagem, setEventoImagem] = useState([]);
+
   const [loading, setLoading] = useState(true);
   const [tamanhoLista, setTamanhoLista] = useState(0);
   const [tamanhoLista2, setTamanhoLista2] = useState(0);
@@ -38,21 +38,6 @@ export default function Home({ navigation }) {
     await api('/evento/')
       .then((response) => {
         setEventos(response.data);
-        getEventoImagem();
-      })
-      .catch((error) => {
-        console.error(error);
-        flashMessage("Falha ao conectar com o banco de dados.", "danger");
-      });
-    // setLoading(false);
-  }
-
-  async function getEventoImagem() {
-    //setLoading(true);
-    await api("/evento/imagens")
-      .then((response) => {
-        const { base64 } = response.data[1];
-        setEventoImagem(base64);
       })
       .catch((error) => {
         console.error(error);
@@ -108,6 +93,7 @@ export default function Home({ navigation }) {
       ) : eventos ? (
         <>
           <Lista
+            style={{ paddingBottom: 1 }}
             showsVerticalScrollIndicator={false}
             data={eventos}
             keyExtractor={(e) => e.id.toString()}
@@ -115,9 +101,8 @@ export default function Home({ navigation }) {
               <CardEvento
                 key={item.id}
                 evento={item}
-                eventoImagem={`data:image/jpg;base64,${eventoImagem}`}
                 onPress={() =>
-                  navigation.navigate("DetalheHome", { evento: item, eventoImagem: eventoImagem })
+                  navigation.navigate("DetalheHome", { evento: item })
                 }
                 onLongPress={() =>
                   Alert.alert(
