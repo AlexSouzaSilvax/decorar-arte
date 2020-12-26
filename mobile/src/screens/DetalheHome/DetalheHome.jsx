@@ -65,11 +65,12 @@ export default function DetalheHome({ navigation }) {
         }
     }, []);
 
-    useEffect(() => {
-        if (tamanhoLista > 0) {
-            Keyboard.dismiss();
-        }
-    }, [tamanhoLista]);
+    /* useEffect(() => {        
+         if (tamanhoLista > 0) {
+             //Keyboard.dismiss();
+         }
+     }, [tamanhoLista]);
+     */
 
     async function salvar() {
         setLoading(true);
@@ -88,7 +89,7 @@ export default function DetalheHome({ navigation }) {
             tipoPgtoCobranca: tipoPgtoCobranca,
             valorEntradaCobranca: valorEntradaCobranca,
             dtPrevQuitaCobranca: dtPrevQuitaCobranca,
-            observacaoCobranca: observacaoCobranca,            
+            observacaoCobranca: observacaoCobranca,
             imagem: imagem
         })
             .then((response) => {
@@ -368,24 +369,22 @@ export default function DetalheHome({ navigation }) {
                             </TouchableOpacity>
                         }
                     </Form>
-
-                    <CameraItem
-                        cameraType={cameraType}
-                        setCameraType={() => setCameraType(!cameraType)}
-                        camera={camera}
-                        modalCameraVisible={modalCameraVisible}
-                        loadingCamera={loadingCamera}
-                        permissao={permissao}
-                        setModalCameraVisible={() =>
-                            setModalCameraVisible(!modalCameraVisible)
-                        }
-                        setCamera={(ref) => setCamera(ref)}
-                        capturaFoto={capturaFoto}
-                    />
-
                 </KeyboardAwareScrollView>
+                <CameraItem
+                    cameraType={cameraType}
+                    setCameraType={() => setCameraType(!cameraType)}
+                    camera={camera}
+                    modalCameraVisible={modalCameraVisible}
+                    loadingCamera={loadingCamera}
+                    permissao={permissao}
+                    setModalCameraVisible={() =>
+                        setModalCameraVisible(!modalCameraVisible)
+                    }
+                    setCamera={(ref) => setCamera(ref)}
+                    capturaFoto={capturaFoto}
+                />
             </Wrapper>
-        </Body >
+        </Body>
     );
 }
 
