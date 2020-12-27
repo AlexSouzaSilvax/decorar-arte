@@ -47,10 +47,10 @@ export default function CardEvento({ evento, onPress, onLongPress }) {
 
       <Top style={{ marginTop: 10 }}>
         <View style={{ flex: 1 }}>
-          <Text style={{ fontSize: 15, alignSelf: "flex-start" }} numberOfLines={2}>{evento.localEvento}</Text>
+          <Text style={{ fontSize: 14, alignSelf: "flex-start", color: colors.gray }} numberOfLines={2}>{evento.localEvento}</Text>
         </View>
         <View>
-          <Text style={{ fontSize: 15, alignSelf: "flex-end" }}>{formatData(evento.dataEvento)}</Text>
+          <Text style={{ fontSize: 14, alignSelf: "flex-end", color: colors.gray }}>{formatData(evento.dataEvento)}</Text>
         </View>
       </Top>
 
