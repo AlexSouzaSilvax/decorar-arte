@@ -16,7 +16,7 @@ export const Body = styled.View`
 
 export const Lista = styled.FlatList`  
   margin-top: -23;
-  padding-top: 15;  
+  padding-top: 4;
 `;
 
 export const A = styled.View`
