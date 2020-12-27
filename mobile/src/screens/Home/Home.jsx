@@ -1,28 +1,40 @@
 import React, { useState, useEffect } from "react";
+import { Spinner } from "native-base";
+import { BackHandler, RefreshControl, Alert, Keyboard } from 'react-native';
+import { createFilter } from "react-native-search-filter";
+import ActionButton from "react-native-action-button";
 
-import { Body, Wrapper, A, B, Lista, ViewLoading } from "./Home.styles";
 import Header from "../../components/Header";
 import CardEvento from "../../components/CardEvento";
 import CardVazio from "../../components/CardVazio";
-import ActionButton from "react-native-action-button";
-import { api, BASE_URL } from "../../service/api";
-import { Spinner } from "native-base";
-import { BackHandler, RefreshControl, Alert } from 'react-native';
+import Pesquisa from "../../components/Pesquisa";
+import { Body, Wrapper, A, B, Lista, ViewLoading } from "./Home.styles";
 import { colors } from '../../service/colors';
 import { flashMessage } from "../../service/helper";
+import { api, BASE_URL } from "../../service/api";
 
 export default function Home({ navigation }) {
   const [eventos, setEventos] = useState([]);
+  const [eventos2, setEventos2] = useState([]);
   const [loading, setLoading] = useState(true);
   const [tamanhoLista, setTamanhoLista] = useState(0);
   const [tamanhoLista2, setTamanhoLista2] = useState(0);
   const [btnNovo, setBtnNovo] = useState(true);
+  const [pesquisa, setPesquisa] = useState("");
+  const [cardPesquisa, setCardPesquisa] = useState(false);
+  const parametrosPesquisa = [
+    "nomeCliente",
+    "nomeEvento",
+    "localEvento",
+    "dataEvento"
+  ];
 
   useEffect(() => {
     getEventos();
   }, []);
 
   useEffect(() => {
+    Keyboard.dismiss();
     if (tamanhoLista > 0) {
       setBtnNovo(false);
     }
@@ -33,10 +45,14 @@ export default function Home({ navigation }) {
   }, [tamanhoLista]);
 
   async function getEventos() {
+    setCardPesquisa(false);
+    Keyboard.dismiss();
+
     setLoading(true);
     await api('/evento/')
       .then((response) => {
         setEventos(response.data);
+        setEventos2(response.data);
       })
       .catch((error) => {
         console.error(error);
@@ -68,6 +84,22 @@ export default function Home({ navigation }) {
     getEventos();
   }
 
+
+  function showCardPesquisa() {
+    setCardPesquisa(!cardPesquisa);
+    setPesquisa("");
+    Keyboard.dismiss();
+  }
+
+  function pesquisar(p) {
+    setPesquisa(p);
+    if (pesquisa.length == 0) {
+      setEventos(eventos);
+    } else {
+      setEventos(eventos2.filter(createFilter(p, parametrosPesquisa)));
+    }
+  }
+
   BackHandler.addEventListener("hardwareBackPress", () => {
     navigation.navigate("Home");
     return true;
@@ -76,10 +108,19 @@ export default function Home({ navigation }) {
   return (
     <Body>
       <Wrapper>
-        <Header
-          title="DecorArte"
-          onPressFiltro={() => flashMessage("Em desenvolvimento", "aaa")}
-        />
+        {!cardPesquisa ? (
+          <Header
+            title="DecorArte"
+            onPressPesquisa={() => setCardPesquisa(!cardPesquisa)}
+          />
+        ) : (
+            <Pesquisa
+              placeHolder="Pesquisar eventos"
+              valor={pesquisa}
+              onChangeText={p => pesquisar(p)}
+              onPressBackPesquisa={() => showCardPesquisa()}
+            />
+          )}
       </Wrapper>
       <A>
         <B />
