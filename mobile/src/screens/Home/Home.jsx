@@ -11,7 +11,7 @@ import Pesquisa from "../../components/Pesquisa";
 import { Body, Wrapper, A, B, Lista, ViewLoading } from "./Home.styles";
 import { colors } from '../../service/colors';
 import { flashMessage } from "../../service/helper";
-import { api, BASE_URL } from "../../service/api";
+import { api } from "../../service/api";
 
 export default function Home({ navigation }) {
   const [eventos, setEventos] = useState([]);
@@ -84,7 +84,6 @@ export default function Home({ navigation }) {
     getEventos();
   }
 
-
   function showCardPesquisa() {
     setCardPesquisa(!cardPesquisa);
     setPesquisa("");
@@ -99,6 +98,7 @@ export default function Home({ navigation }) {
       setEventos(eventos2.filter(createFilter(p, parametrosPesquisa)));
     }
   }
+
 
   BackHandler.addEventListener("hardwareBackPress", () => {
     navigation.navigate("Home");
