@@ -3,7 +3,7 @@ import { Wrapper, Title, BtnFiltro } from "./Header.styles";
 import { Icon } from 'native-base';
 import { colors } from '../../service/colors';
 
-export default function Header({ title, onPressFiltro, onPressVoltar, styleTitle }) {
+export default function Header({ title, onPressPesquisa, onPressVoltar, styleTitle }) {
   return (
     <Wrapper>
       {/*BTNVOLTAR*/}
@@ -13,9 +13,9 @@ export default function Header({ title, onPressFiltro, onPressVoltar, styleTitle
         </BtnFiltro>
         : <></>}
       <Title style={styleTitle} >{title}</Title>
-      { onPressFiltro ?
-        <BtnFiltro onPress={onPressFiltro}>
-          <Icon name="filter" type="AntDesign" style={{ color: colors.white, alignSelf: "flex-end", paddingEnd: 25 }} />
+      { onPressPesquisa ?
+        <BtnFiltro onPress={onPressPesquisa}>
+          <Icon name="search" type="MaterialIcons" style={{ color: colors.white, alignSelf: "flex-end", paddingEnd: 25 }} />
         </BtnFiltro>
         : <></>}
     </Wrapper>
