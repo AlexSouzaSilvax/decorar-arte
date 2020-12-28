@@ -101,7 +101,7 @@ export default function Home({ navigation }) {
 
 
   BackHandler.addEventListener("hardwareBackPress", () => {
-    navigation.navigate("Home");
+    BackHandler.exitApp();
     return true;
   });
 
