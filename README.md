@@ -1,5 +1,5 @@
 <h1 align="center">
-  Projeto DecorArte Festas e Eventos
+  Projeto Decorar Arte Festas e Eventos
 </h1>
 
 <br>
@@ -28,7 +28,7 @@ Esse projeto foi desenvolvido com as seguintes tecnologias:
 - MySql
 - Amazon Cloud
 
-## 🏀 Projeto
+## 🧠 Projeto
 
 Necessidade do Cliente, ter um app para controlar e administrar os eventos realizados, ter um histórico dos eventos.
 
