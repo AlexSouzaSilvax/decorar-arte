@@ -1,5 +1,8 @@
 import React, { useState, useEffect } from "react";
-import { StyleSheet, Dimensions, View, TouchableOpacity, Text, TextInput, BackHandler } from 'react-native';
+import {
+    StyleSheet, Dimensions, View, TouchableOpacity, Text, TextInput, BackHandler,
+    //Keyboard
+} from 'react-native';
 import { Icon, Label, Form, Item, Input, ActionSheet, Spinner } from 'native-base';
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
 import { TextInputMask } from "react-native-masked-text";
@@ -23,7 +26,6 @@ export default function DetalheHome({ navigation }) {
     let evento = navigation.getParam('evento');
 
     const [dataEvento, setDataEvento] = useState();
-    const [dtPrevQuitaCobranca, setDtPrevQuitaCobranca] = useState();
     const [id, setId] = useState();
     const [localEvento, setLocalEvento] = useState();
     const [nomeCliente, setNomeCliente] = useState();
@@ -32,10 +34,8 @@ export default function DetalheHome({ navigation }) {
     const [observacaoCobranca, setObservacaoCobranca] = useState();
     const [pagoCobranca, setPagoCobranca] = useState();
     const [telefoneCliente, setTelefoneCliente] = useState();
-    const [tipoPgtoCobranca, setTipoPgtoCobranca] = useState();
     const [tipoServico, setTipoServico] = useState();
     const [valorCobranca, setValorCobranca] = useState();
-    const [valorEntradaCobranca, setValorEntradaCobranca] = useState();
     const [loading, setLoading] = useState(false);
     const [loadingCamera, setLoadingCamera] = useState(false);
     const [modalCameraVisible, setModalCameraVisible] = useState(false);
@@ -43,12 +43,11 @@ export default function DetalheHome({ navigation }) {
     const [camera, setCamera] = useState();
     const [permissao, setPermissao] = useState(null);
     const [cameraType, setCameraType] = useState(true); //true === back, false === front
-    const [tamanhoLista, setTamanhoLista] = useState(0);
+    //const [tamanhoLista, setTamanhoLista] = useState(0);
 
     useEffect(() => {
         if (evento) {
             setDataEvento(formatData(evento.dataEvento));
-            setDtPrevQuitaCobranca(evento.dtPrevQuitaCobranca);
             setId(evento.id);
             setLocalEvento(evento.localEvento);
             setNomeCliente(evento.nomeCliente)
@@ -57,20 +56,14 @@ export default function DetalheHome({ navigation }) {
             setObservacaoCobranca(evento.observacaoCobranca);
             setPagoCobranca(evento.pagoCobranca)
             setTelefoneCliente(evento.telefoneCliente)
-            setTipoPgtoCobranca(evento.tipoPgtoCobranca)
             setTipoServico(evento.tipoServico ? evento.tipoServico : 0)
             setValorCobranca(evento.valorCobranca);
-            setValorEntradaCobranca(evento.valorEntradaCobranca);
             setImagem(evento.imagem);
+        } else {
+            setPagoCobranca(false);
+            setValorCobranca(0);
         }
     }, []);
-
-    /* useEffect(() => {        
-         if (tamanhoLista > 0) {
-             //Keyboard.dismiss();
-         }
-     }, [tamanhoLista]);
-     */
 
     async function salvar() {
         setLoading(true);
@@ -86,9 +79,6 @@ export default function DetalheHome({ navigation }) {
             observacaoEvento: observacaoEvento,
             pagoCobranca: pagoCobranca,
             valorCobranca: validValue(valorCobranca),
-            tipoPgtoCobranca: tipoPgtoCobranca,
-            valorEntradaCobranca: valorEntradaCobranca,
-            dtPrevQuitaCobranca: dtPrevQuitaCobranca,
             observacaoCobranca: observacaoCobranca,
             imagem: imagem
         })
@@ -173,7 +163,7 @@ export default function DetalheHome({ navigation }) {
                         backgroundColor: colors.primaryColor
                     }}
                     showsVerticalScrollIndicator={false}
-                    onScroll={event => setTamanhoLista(event.nativeEvent.contentOffset.y)}
+                // onScroll={event => setTamanhoLista(event.nativeEvent.contentOffset.y)}                     
                 >
                     <View>
                         <Header title="Agendamento" onPressVoltar={() => navigation.navigate('Home')} styleTitle={{ left: 22 }} />
