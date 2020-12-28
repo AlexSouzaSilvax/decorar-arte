@@ -110,7 +110,7 @@ export default function Home({ navigation }) {
       <Wrapper>
         {!cardPesquisa ? (
           <Header
-            title="DecorArte"
+            title="Decorar Arte"
             onPressPesquisa={() => setCardPesquisa(!cardPesquisa)}
           />
         ) : (
