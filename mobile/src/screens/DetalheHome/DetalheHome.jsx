@@ -1,12 +1,12 @@
 import React, { useState, useEffect } from "react";
-import { StyleSheet, Dimensions, View, TouchableOpacity, Text, TextInput, BackHandler, Keyboard } from 'react-native';
+import { StyleSheet, Dimensions, View, TouchableOpacity, Text, TextInput, BackHandler } from 'react-native';
 import { Icon, Label, Form, Item, Input, ActionSheet, Spinner } from 'native-base';
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
 import { TextInputMask } from "react-native-masked-text";
 import * as ImagePicker from "expo-image-picker";
 import * as Permissions from "expo-permissions";
 import {
-    Body, Wrapper, A, B, Lista, FormInfo, TituloFormInfo, Image, FormImagem
+    Body, Wrapper, A, B, FormInfo, TituloFormInfo, Image, FormImagem
 } from "./DetalheHome.styles";
 import Header from '../../components/Header';
 import CameraItem from '../../components/Camera';
@@ -358,7 +358,23 @@ export default function DetalheHome({ navigation }) {
                             </View>
 
                         </FormInfo>
-
+                        {/*
+                        <TouchableOpacity onPress={compartilhar} style={{
+                            marginTop: 10,
+                            justifyContent: "center",
+                            alignItems: 'center',
+                            width: Dimensions.get('screen').width,
+                            height: 60,
+                            flexDirection: "row"
+                        }}>
+                            <Text style={{ fontSize: 18, color: colors.gray, paddingEnd: 10 }}>Compartilhar</Text>
+                            <Icon
+                                name={"share"}
+                                type={"Feather"}
+                                style={{ alignSelf: 'center', color: colors.gray, fontSize: 22 }}
+                            />
+                        </TouchableOpacity>
+                        */}
                         {loading ?
                             <View style={styles.button}>
                                 <Spinner size="large" color={colors.white} />
@@ -405,7 +421,7 @@ const styles = StyleSheet.create({
         height: 50,
         alignSelf: "center",
         backgroundColor: colors.primaryColor,
-        marginTop: 35,
+        marginTop: 25,
         justifyContent: "center",
         alignItems: "center",
         borderRadius: 6,
