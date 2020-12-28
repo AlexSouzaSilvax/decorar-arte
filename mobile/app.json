@@ -1,7 +1,7 @@
 {
   "expo": {
-    "name": "DecorArte",
-    "slug": "DecorArte",
+    "name": "Decorar Arte",
+    "slug": "Decorar Arte",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
@@ -24,7 +24,7 @@
         "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#ed0059"
       },
-      "package": "br.com.alexsouzasilvax.decorarte"
+      "package": "br.com.alexsouzasilvax.decorararte"
     },
     "primaryColor": "#ed0059"
   }
