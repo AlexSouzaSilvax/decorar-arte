@@ -8,6 +8,8 @@
     <img alt="print2" src="./mobile/assets/print2.jpeg" height="600px">
     <img alt="print3" src="./mobile/assets/print3.jpeg" height="600px">
     <img alt="print4" src="./mobile/assets/print4.jpeg" height="600px">
+    <img alt="print5" src="./mobile/assets/print5.jpeg" height="600px">
+    <img alt="print6" src="./mobile/assets/print5.jpeg" height="600px">
   </p>
 
 <br>
