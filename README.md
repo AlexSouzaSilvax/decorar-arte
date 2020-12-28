@@ -26,6 +26,7 @@ Esse projeto foi desenvolvido com as seguintes tecnologias:
 - Java Spring Boot
 - JPA
 - MySql
+- Tomcat
 - Amazon Cloud
 
 ## 🧠 Projeto
