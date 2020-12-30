@@ -50,90 +50,90 @@ Necessidade do Cliente, ter um app para controlar e administrar os eventos reali
 
 ## GET - Lista todos os eventos.
 
-/evento
+     /evento
 
-return BODY:
+     return BODY:
 
-[
-  {
-        "id": int,
-        "tipoServico": int,
-        "nomeCliente": string,
-        "telefoneCliente": string,
-        "nomeEvento": string,
-        "localEvento": string,
-        "dataEvento": date,
-        "observacaoEvento": string,
-        "pagoCobranca": boolean,
-        "valorCobranca": double,        
-        "observacaoCobranca": string,
-        "imagem": string (base64)
-    }
-]
+     [
+       {
+             "id": int,
+             "tipoServico": int,
+             "nomeCliente": string,
+             "telefoneCliente": string,
+             "nomeEvento": string,
+             "localEvento": string,
+             "dataEvento": date,
+             "observacaoEvento": string,
+             "pagoCobranca": boolean,
+             "valorCobranca": double,        
+             "observacaoCobranca": string,
+             "imagem": string (base64)
+         }
+     ]
 
 <br>
 
 ## GET - Buscar um evento por id. 
 
-/evento/buscar?id=ID
+     /evento/buscar?id=ID
 
-return BODY:
+     return BODY:
 
-[
-  {
-        "id": int,
-        "tipoServico": int,
-        "nomeCliente": string,
-        "telefoneCliente": string,
-        "nomeEvento": string,
-        "localEvento": string,
-        "dataEvento": date,
-        "observacaoEvento": string,
-        "pagoCobranca": boolean,
-        "valorCobranca": double,        
-        "observacaoCobranca": string,
-        "imagem": string (base64
-    }
-]
+     [
+       {
+             "id": int,
+             "tipoServico": int,
+             "nomeCliente": string,
+             "telefoneCliente": string,
+             "nomeEvento": string,
+             "localEvento": string,
+             "dataEvento": date,
+             "observacaoEvento": string,
+             "pagoCobranca": boolean,
+             "valorCobranca": double,        
+             "observacaoCobranca": string,
+             "imagem": string (base64
+         }
+     ]
 
 <br>
 
 ## POST - Buscar um evento por id. 
 
-/evento/salvar
+     /evento/salvar
 
 
-return BODY:
+     return BODY:
 
-[
-  {
-        "id": int,
-        "tipoServico": int,
-        "nomeCliente": string,
-        "telefoneCliente": string,
-        "nomeEvento": string,
-        "localEvento": string,
-        "dataEvento": date,
-        "observacaoEvento": string,
-        "pagoCobranca": boolean,
-        "valorCobranca": double,        
-        "observacaoCobranca": string,
-        "imagem": string (base64)
-    }
-]
+     [
+       {
+             "id": int,
+             "tipoServico": int,
+             "nomeCliente": string,
+             "telefoneCliente": string,
+             "nomeEvento": string,
+             "localEvento": string,
+             "dataEvento": date,
+             "observacaoEvento": string,
+             "pagoCobranca": boolean,
+             "valorCobranca": double,        
+             "observacaoCobranca": string,
+             "imagem": string (base64)
+         }
+     ]
 
 <br>
 
 ## POST - Apaga um evento por id. 
 
-/evento/apagar
+     /evento/apagar
 
-id: ID
+     id: ID
 
-return HEADER:
+     return HEADER:
 
- header.mensagem = Apagado com sucesso! || Error ao apagar!
- header.result = true || false
+      header.mensagem = Apagado com sucesso! || Error ao apagar!
+      header.result = true || false
  
  <br>
  <br>
