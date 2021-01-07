@@ -9,8 +9,8 @@
 		<version>2.4.1</version>
 		<relativePath /> <!-- lookup parent from repository -->
 	</parent>
-	<groupId>com.decorarte</groupId>
-	<artifactId>backend</artifactId>
+	<groupId>com.decorararte</groupId>
+	<artifactId>decorar-arte</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<packaging>war</packaging>
 	<name>backend</name>
