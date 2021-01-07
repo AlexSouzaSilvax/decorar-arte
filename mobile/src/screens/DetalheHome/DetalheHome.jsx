@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import {
-    StyleSheet, Dimensions, View, TouchableOpacity, Text, TextInput, BackHandler,
+    StyleSheet, Dimensions, View, TouchableOpacity, Text, TextInput, BackHandler, Keyboard,
     //Keyboard
 } from 'react-native';
 import { Icon, Label, Form, Item, Input, ActionSheet, Spinner } from 'native-base';
@@ -43,7 +43,8 @@ export default function DetalheHome({ navigation }) {
     const [camera, setCamera] = useState();
     const [permissao, setPermissao] = useState(null);
     const [cameraType, setCameraType] = useState(true); //true === back, false === front
-    //const [tamanhoLista, setTamanhoLista] = useState(0);
+    const [tamanhoLista, setTamanhoLista] = useState(0);
+    const [tamanhoListaInput, setTamanhoListaInput] = useState(0);
 
     useEffect(() => {
         if (evento) {
@@ -64,6 +65,21 @@ export default function DetalheHome({ navigation }) {
             setValorCobranca(0);
         }
     }, []);
+
+    useEffect(() => {
+        console.log('\n--------------> tamanhoLista: ' + tamanhoLista + ' <----------------')
+        console.log('--------------> tamanhoListaInput: ' + tamanhoListaInput + ' <----------------\n')
+
+        console.log(tamanhoListaInput)
+        if (tamanhoListaInput != 0) {
+            if (tamanhoListaInput > (tamanhoListaInput + 50) || tamanhoListaInput < (tamanhoListaInput - 50)) {
+                console.log('teclado fechado');
+                //Keyboard.dismiss();
+            }
+        }
+
+        //setTamanhoListaInput(tamanhoLista);
+    }, [tamanhoLista]);
 
     async function salvar() {
         setLoading(true);
@@ -163,7 +179,7 @@ export default function DetalheHome({ navigation }) {
                         backgroundColor: colors.primaryColor
                     }}
                     showsVerticalScrollIndicator={false}
-                // onScroll={event => setTamanhoLista(event.nativeEvent.contentOffset.y)}                     
+                    onScroll={event => setTamanhoLista(event.nativeEvent.contentOffset.y)}
                 >
                     <View>
                         <Header title="Agendamento" onPressVoltar={() => navigation.navigate('Home')} styleTitle={{ left: 22 }} />
@@ -244,7 +260,18 @@ export default function DetalheHome({ navigation }) {
                             <TituloFormInfo>Cliente</TituloFormInfo>
                             <Item floatingLabel>
                                 <Label>Nome</Label>
-                                <Input style={styles.input} value={nomeCliente} onChangeText={setNomeCliente} />
+                                <Input
+                                    onFocus={() => {
+                                        console.log('\nENTROU NO INPUT\n');
+                                        setTamanhoListaInput(tamanhoLista);
+                                    }}
+                                    onEndEditing={() => {
+                                        setTamanhoListaInput(0);
+                                    }}
+                                    style={styles.input}
+                                    value={nomeCliente}
+                                    onChangeText={setNomeCliente}
+                                />
                             </Item>
                             <View style={[styles.inputContainer, { marginTop: 10 }]}>
                                 <Text style={styles.label}>Telefone</Text>
