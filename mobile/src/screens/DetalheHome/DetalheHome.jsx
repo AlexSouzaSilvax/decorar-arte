@@ -287,7 +287,7 @@ export default function DetalheHome({ navigation }) {
                         <FormInfo style={{ marginTop: 20, padding: 10 }}>
                             <TituloFormInfo>Evento</TituloFormInfo>
                             <Item floatingLabel>
-                                <Label>Nome</Label>
+                                <Label>Tema</Label>
                                 <Input style={styles.input} value={nomeEvento} onChangeText={setNomeEvento} />
                             </Item>
                             <Item floatingLabel>
