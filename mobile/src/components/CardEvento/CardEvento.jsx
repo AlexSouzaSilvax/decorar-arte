@@ -41,7 +41,14 @@ export default function CardEvento({ evento, onPress, onLongPress }) {
       </Top>
 
       <Top style={{ marginTop: 10, justifyContent: "center", alingItems: "center" }}>
-        <Image style={{ width: Dimensions.get('screen').width - 30, height: 200, borderRadius: 8, alignSelf: 'center' }} source={{ uri: `data:image/jpg;base64,${evento.imagem}` }}
+        <Image
+          style={{ width: Dimensions.get('screen').width - 30, height: 200, borderRadius: 8, alignSelf: 'center' }}
+          source={
+            evento.imagem ? ({ uri: `data:image/jpg;base64,${evento.imagem}` })
+              : (
+                require('../../../assets/defaultImage.png')
+              )
+          }
         />
       </Top>
 
