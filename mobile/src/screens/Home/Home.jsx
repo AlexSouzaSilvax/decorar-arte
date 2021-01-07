@@ -169,7 +169,7 @@ export default function Home({ navigation }) {
           {btnNovo ?
             <ActionButton
               buttonColor={colors.primaryColor}
-              onPress={() => navigation.navigate("DetalheHome", { evento: {} })}
+              onPress={() => navigation.navigate("DetalheHome")}
             />
             :
             null
