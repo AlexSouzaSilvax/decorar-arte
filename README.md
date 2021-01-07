@@ -42,15 +42,15 @@ Necessidade do Cliente, ter um app para controlar e administrar os eventos reali
   <p align="center">
   Base url:
 </p>
-  <p align="center">
-  http://3.17.4.232:8080/decorarte/api
+  <p align="center">  
+  http://3.17.4.232:8080/decorar-arte/api
 </p>
 
 <br>
 
 ## GET - Lista todos os eventos.
 
-     /evento
+     /evento/
 
      return BODY:
 
