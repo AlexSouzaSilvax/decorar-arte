@@ -98,7 +98,7 @@ Necessidade do Cliente, ter um app para controlar e administrar os eventos reali
 
 <br>
 
-## POST - Buscar um evento por id. 
+## POST - Cria/Atualizar um evento. 
 
      /evento/salvar
 
